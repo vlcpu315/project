@@ -1,0 +1,75 @@
+Database Structure(mySQL)
+
+Can use the createDatabase.sql file to create database. May need to change credentials and location in the database.php file
+for to connect to your database.
+
+#	Name	        Type	        Collation	           Null	  Default	                Extra	Action
+1	id           int(255)		                         No	    None		                AUTO_INCREMENT
+2	email	       varchar(255)	  latin1_swedish_ci		 No	    None
+3	referee	      varchar(255)	latin1_swedish_ci		 Yes	  NULL
+4	time	        datetime(6)			                   No	    CURRENT_TIMESTAMP(6)
+5	ip          	varchar(255)	latin1_swedish_ci		 No	    None
+
+
+1. To query api for information on a certain user:
+
+    use URL GET request: localhost/project/api.php?query=*EMAIL HERE*
+    or use POST: post into variable $_POST["query"]
+
+2. To return all data as json
+
+    use url GET request: localhost/project/api.php?all=*CAN PUT ANYTHING HERE AS LONG AS VARIABLE IS SET*
+    use POST: post into variable $_POST["all"] //can be anything as long as variable is all
+
+3. To delete a user
+
+    use POST: post into variable $_POST["delete"] = *EMAIL YOU WANT TO DELETE*
+    If testing in POSTMAN you need to select post via form data.
+
+4. To Create a user
+
+    use POST to send JSON data into api. Post into variable $_POST["create"]
+    If testing in POSTMAN you need to select post via form data.
+
+    JSON Format:
+    [{
+    "email":"as@as.com",
+    "referee":"b@b.com",
+    "ip":"123.125.236"
+    }]
+
+    or
+
+    [{
+    "email":"a@a.com",
+    "ip":"123.125.236"
+    }]
+
+
+    Must have email and ip fields. If referee field is left blank it will just fill
+    a null in the database. You can input multiple users at the same time.
+
+    ex.
+
+    [{
+    "email":"a@a.com",
+    "referee":"b@b.com",
+    "ip":"123.125.236"
+    },
+    {
+    "email":"a@a.com",
+    "ip":"123.125.236"
+    }]
+
+5. To update user
+
+    Use POST to send JSON data to api. Post into variable $_POST["update"]
+    If testing in POSTMAN you need to select post via form data.
+
+    JSON Format:
+    [{
+    "email":"d@d.com",
+    "referee":"b@b.com"
+    }]
+
+    Can only update referee right now.
